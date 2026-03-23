@@ -3,7 +3,13 @@ import { logoutUser, getUserInfo, refreshToken } from "../utils/auth"
 import { useState, useEffect } from "react";
 
 export default function Home() {
-  const [user, setUser] = useState(null)
+  type User = {
+    username: string,
+    email: string,
+    password: string
+  }
+
+  const [user, setUser] = useState<User>();
   useEffect(() => {
     const getUser = async () => {
       const userDetails = await getUserInfo()
