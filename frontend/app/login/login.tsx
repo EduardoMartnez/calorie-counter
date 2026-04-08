@@ -7,7 +7,7 @@ export default function loginPage() {
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault()
         if (password === "" || email === "") {
             return

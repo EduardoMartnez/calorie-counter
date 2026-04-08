@@ -2,10 +2,10 @@ import axios from "axios";
 
 const API_URL = "http://127.0.0.1:8000/api/users/";
 
-export const registerUser = async (email, username, password) => {
+export const registerUser = async (email: string, username: string, password: string) => {
     try {
         const response = await axios.post(`${API_URL}register/`, {email, username, password},
-            {withCredentials: True}
+            {withCredentials: true}
         )
         return response.data
     }
@@ -14,10 +14,10 @@ export const registerUser = async (email, username, password) => {
     }
 }
 
-export const loginUser = async (email, password) => {
+export const loginUser = async (email: string, password: string) => {
     try {
         const response = await axios.post(`${API_URL}login/`, {email, password},
-            {withCredentials: True}
+            {withCredentials: true}
         )
         return response.data
     }
@@ -29,7 +29,7 @@ export const loginUser = async (email, password) => {
 export const logoutUser = async () => {
     try {
         const response = await axios.post(`${API_URL}logout/`, null,
-            {withCredentials: True}
+            {withCredentials: true}
         )
         return response.data
     }
@@ -41,7 +41,7 @@ export const logoutUser = async () => {
 export const getUserInfo = async () => {
     try {
         const response = await axios.post(`${API_URL}user-info/`, null,
-            {withCredentials: True}
+            {withCredentials: true}
         )
         return response.data
     }
@@ -53,7 +53,7 @@ export const getUserInfo = async () => {
 export const refreshToken = async () => {
     try {
         const response = await axios.post(`${API_URL}refresh/`, null,
-            {withCredentials: True}
+            {withCredentials: true}
         )
         return response.data
     }
