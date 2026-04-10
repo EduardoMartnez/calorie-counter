@@ -1,0 +1,60 @@
+services:
+    database:
+        image: postgres:latest
+        container_name: cc_postgres
+        environment: 
+            - POSTGRES_DB=${POSTGRES_DB}
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+        expose:
+            - '5432'
+        volumes:
+            - cc-pg_data:/var/lib/postgresql/data
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+            interval: 1s
+            timeout: 5s
+            retries: 10
+
+    backend:
+        container_name: cc-backend
+        environment:
+            - POSTGRES_NAME=${POSTGRES_DB}
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+            - POSTGRES_HOST=${POSTGRES_HOST}
+            - POSTGRES_PORT=${POSTGRES_PORT}
+            - DJANGO_DEBUG=${DJANGO_DEBUG}
+            - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+            - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
+        build: 
+            context: ./backend
+            dockerfile: ./Dockerfile.dev
+        expose:
+            - "8000"
+        depends_on:
+            database:
+                condition: service_healthy
+        restart: unless-stopped
+
+    frontend:
+        container_name: cc-frontend
+        build:
+            context: ./frontend
+            dockerfile: ./Dockerfile.dev
+        expose:
+            - "3000"
+
+    reverse_proxy:
+        container_name: cc-rev_proxy
+        build: 
+            context: ./reverse_proxy
+            dockerfile: ./Dockerfile
+        ports:
+            - "1337:80"
+        depends_on:
+            - "backend"
+            - "frontend"
+
+volumes:
+    cc-pg_data:
