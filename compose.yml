@@ -17,6 +17,9 @@ services:
             retries: 10
 
     backend:
+        build: 
+            context: ./backend
+            dockerfile: ./Dockerfile.dev
         container_name: cc-backend
         environment:
             - POSTGRES_NAME=${POSTGRES_DB}
@@ -27,9 +30,6 @@ services:
             - DJANGO_DEBUG=${DJANGO_DEBUG}
             - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
             - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
-        build: 
-            context: ./backend
-            dockerfile: ./Dockerfile.dev
         expose:
             - "8000"
         depends_on:
@@ -38,18 +38,18 @@ services:
         restart: unless-stopped
 
     frontend:
-        container_name: cc-frontend
         build:
             context: ./frontend
             dockerfile: ./Dockerfile.dev
+        container_name: cc-frontend
         expose:
             - "3000"
 
     reverse_proxy:
-        container_name: cc-rev_proxy
         build: 
             context: ./reverse_proxy
             dockerfile: ./Dockerfile
+        container_name: cc-rev_proxy
         ports:
             - "1337:80"
         depends_on:
