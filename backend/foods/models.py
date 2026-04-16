@@ -12,13 +12,13 @@ class Foods(models.Model):
     # Describing what the food is (ex. burger with buns)
     description = models.CharField()
     # Unique ID for a category of food
-    food_category_id = models.ForeignKey(FoodCategories)
+    food_category_id = models.ForeignKey(FoodCategories, on_delete=models.CASCADE)
 
 class FoodPortions(models.Model):
     # Unique ID of a portion
     id = models.BigIntegerField(primary_key=True)
     # Unique ID for a food
-    fdc_id = models.ForeignKey(Foods)
+    fdc_id = models.ForeignKey(Foods, on_delete=models.CASCADE)
     # Order in which portions are ordered
     seq_num = models.SmallIntegerField()
     # Description of a portion
@@ -40,9 +40,9 @@ class FoodNutrients(models.Model):
     # Unique ID of a food's nutrient
     id = models.BigIntegerField(primary_key=True)
     # Unique ID of a food
-    fdc_id = models.ForeignKey(Foods)
+    fdc_id = models.ForeignKey(Foods, on_delete=models.CASCADE)
     # Unique ID of a nutrient
-    nutrient_id = models.ForeignKey(Nutrients)
+    nutrient_id = models.ForeignKey(Nutrients, on_delete=models.CASCADE)
     # Amount of nutrient in grams
     amount = models.FloatField()
 
@@ -50,7 +50,7 @@ class Ingredients(models.Model):
     # Unique ID for a food's ingredients
     id = models.BigIntegerField(primary_key=True)
     # Unique ID of a food
-    fdc_id = models.ForeignKey(Foods)
+    fdc_id = models.ForeignKey(Foods, on_delete=models.CASCADE)
     # Order in which ingredients are displayed
     seq_num = models.SmallIntegerField()
     # Description of the ingredient
