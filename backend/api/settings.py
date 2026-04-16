@@ -33,11 +33,15 @@ ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS","127.0.0.1").split(",")
 # Application definition
 
 INSTALLED_APPS = [
+    # Dependencies
     'corsheaders',
     'rest_framework_simplejwt.token_blacklist',
     'rest_framework_simplejwt',
     'rest_framework',
+    # Database apps
     'users',
+    'foods',
+    # Core
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

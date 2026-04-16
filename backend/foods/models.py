@@ -1,28 +1,59 @@
 from django.db import models
 
-# Create your models here.
 class FoodCategories(models.Model):
-    id = models.BigIntegerField(primary_key=True)
-    category_description = models.CharField()
+    # Unique ID for a category of food
+    food_category_id = models.BigIntegerField(primary_key=True) # wweia_food_category
+    # Description of a category of food
+    description = models.CharField() # wweia_food_category_description
 
 class Foods(models.Model):
-    id = models.BigIntegerField(primary_key=True)
-    food_description = models.CharField()
+    # Unique ID for a food
+    fdc_id = models.BigIntegerField(primary_key=True)
+    # Describing what the food is (ex. burger with buns)
+    description = models.CharField()
+    # Unique ID for a category of food
     food_category_id = models.ForeignKey(FoodCategories)
 
-class FoodNutrients(models.Model):
+class FoodPortions(models.Model):
+    # Unique ID of a portion
     id = models.BigIntegerField(primary_key=True)
-    name = models.CharField()
-
-class FoodNutrients(models.Model):
-    id = models.BigIntegerField(primary_key=True)
-    food_id = models.ForeignKey(Foods)
-    nutrient_id = models.ForeignKey(FoodNutrients)
-    amount = models.IntegerField()
-
-class FoodPortion(models.Model):
-    id = models.BigIntegerField(primary_key=True)
-    food_id = models.ForeignKey(Foods)
+    # Unique ID for a food
+    fdc_id = models.ForeignKey(Foods)
+    # Order in which portions are ordered
     seq_num = models.SmallIntegerField()
-    portion_description = models.CharField()
-    gram_weight = models.IntegerField()
+    # Description of a portion
+    description = models.CharField() # portion_description
+    # Weight of a portion in grams
+    gram_weight = models.FloatField() 
+
+class Nutrients(models.Model):
+    # Unique ID of a nutrient
+    nutrient_id = models.BigIntegerField(primary_key=True) # nutrient_nbr
+    # Name of a nutrient
+    name = models.CharField()
+    # "GM" for grams, "MG" for milligrams, etc.
+    unit_name = models.CharField()
+    # Order in which nutrients are displayed
+    rank = models.FloatField()
+
+class FoodNutrients(models.Model):
+    # Unique ID of a food's nutrient
+    id = models.BigIntegerField(primary_key=True)
+    # Unique ID of a food
+    fdc_id = models.ForeignKey(Foods)
+    # Unique ID of a nutrient
+    nutrient_id = models.ForeignKey(Nutrients)
+    # Amount of nutrient in grams
+    amount = models.FloatField()
+
+class Ingredients(models.Model):
+    # Unique ID for a food's ingredients
+    id = models.BigIntegerField(primary_key=True)
+    # Unique ID of a food
+    fdc_id = models.ForeignKey(Foods)
+    # Order in which ingredients are displayed
+    seq_num = models.SmallIntegerField()
+    # Description of the ingredient
+    description = models.CharField() # sr_description
+    # Amount of ingredient in grams
+    gram_weight = models.FloatField() 
