@@ -2,13 +2,13 @@ from django.db import models
 
 class FoodCategories(models.Model):
     # Unique ID for a category of food
-    food_category_id = models.BigIntegerField(primary_key=True) # wweia_food_category
+    id = models.BigIntegerField(primary_key=True) # wweia_food_category
     # Description of a category of food
     description = models.CharField() # wweia_food_category_description
 
 class Foods(models.Model):
     # Unique ID for a food
-    fdc_id = models.BigIntegerField(primary_key=True)
+    id = models.BigIntegerField(primary_key=True)
     # Describing what the food is (ex. burger with buns)
     description = models.CharField()
     # Unique ID for a category of food
@@ -28,7 +28,7 @@ class FoodPortions(models.Model):
 
 class Nutrients(models.Model):
     # Unique ID of a nutrient
-    nutrient_id = models.BigIntegerField(primary_key=True) # nutrient_nbr
+    id = models.BigIntegerField(primary_key=True) # nutrient_nbr
     # Name of a nutrient
     name = models.CharField()
     # "GM" for grams, "MG" for milligrams, etc.
