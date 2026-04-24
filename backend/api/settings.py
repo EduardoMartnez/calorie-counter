@@ -27,6 +27,27 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "localdev")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv("DJANGO_DEBUG", 1))
 
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "WARNING",
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+            "propagate": False,
+        },
+    },
+}
+
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS","127.0.0.1").split(",")
 
 
