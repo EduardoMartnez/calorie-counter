@@ -6,6 +6,9 @@ class FoodCategories(models.Model):
     # Description of a category of food
     description = models.CharField() # wweia_food_category_description
 
+    def __str__(self):
+        return self.description
+
 class Foods(models.Model):
     # Unique ID for a food
     id = models.BigIntegerField(primary_key=True)
@@ -13,6 +16,9 @@ class Foods(models.Model):
     description = models.CharField()
     # Unique ID for a category of food
     food_category_id = models.ForeignKey(FoodCategories, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.description
 
 class FoodPortions(models.Model):
     # Unique ID of a portion
@@ -26,6 +32,9 @@ class FoodPortions(models.Model):
     # Weight of a portion in grams
     gram_weight = models.FloatField() 
 
+    def __str__(self):
+        return self.description
+
 class Nutrients(models.Model):
     # Unique ID of a nutrient
     id = models.BigIntegerField(primary_key=True) # nutrient_nbr
@@ -36,6 +45,9 @@ class Nutrients(models.Model):
     # Order in which nutrients are displayed
     rank = models.FloatField()
 
+    def __str__(self):
+        return self.name
+
 class FoodNutrients(models.Model):
     # Unique ID of a food's nutrient
     id = models.BigIntegerField(primary_key=True)
@@ -45,6 +57,9 @@ class FoodNutrients(models.Model):
     nutrient_id = models.ForeignKey(Nutrients, on_delete=models.CASCADE)
     # Amount of nutrient in grams
     amount = models.FloatField()
+
+    def __str__(self):
+        return self.fdc_id.description + ", " + self.nutrient_id.name
 
 class Ingredients(models.Model):
     # Unique ID for a food's ingredients
@@ -57,3 +72,6 @@ class Ingredients(models.Model):
     description = models.CharField() # sr_description
     # Amount of ingredient in grams
     gram_weight = models.FloatField() 
+
+    def __str__(self):
+        return self.description
