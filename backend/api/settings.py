@@ -173,3 +173,15 @@ SIMPLE_JWT = {
 
 CORS_ALLOW_ALL_ORIGINS=True # Disable in production
 CORS_ALLOW_CREDENTIALS=True
+
+TESTING = bool(os.getenv("DJANGO_TESTING", 1))
+
+if not TESTING:
+    INSTALLED_APPS = [
+        *INSTALLED_APPS,
+        "debug_toolbar",
+    ]
+    MIDDLEWARE = [
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
+        *MIDDLEWARE,
+    ]
