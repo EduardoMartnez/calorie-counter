@@ -29,18 +29,18 @@ class FoodNutrientsSerializer(serializers.ModelSerializer):
 # Advanced Serializers for views.py
 class MatchingFoodsSerializer(FoodsSerializer):
     calories = serializers.SerializerMethodField()
-    category_description = serializers.SerializerMethodField()
+    food_category = serializers.SerializerMethodField()
 
     # Uses prefetched foodnutrients_set to find the calories for each food
     def get_calories(self, obj):
-        calories = obj.foodnutrients_set.filter(nutrient=208)
-        return FoodNutrientsSerializer(calories, many=True).data if calories.exists() else None
+        calories = obj.foodnutrients_set.all()
+        return FoodNutrientsSerializer(calories, many=True).data if calories else None
     
-    # Uses searched food to find the calories for each food (KCAL)
-    def get_category_description(self, obj):
-        category_description = obj.food_category
-        return FoodCategoriesSerializer(category_description).data if category_description else None
+    # Uses searched food to find the category for each food (KCAL)
+    def get_food_category(self, obj):
+        food_category = obj.food_category
+        return FoodCategoriesSerializer(food_category).data if food_category else None
 
     class Meta(FoodsSerializer.Meta):
         model = Foods
-        fields = FoodsSerializer.Meta.fields + ['category_description','calories']
+        fields = FoodsSerializer.Meta.fields + ['food_category','calories']

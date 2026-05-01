@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.db.models import Q
+from django.db.models import Q, OuterRef, Prefetch
 from rest_framework import serializers
 from rest_framework import status
 from rest_framework.views import APIView
@@ -17,7 +17,8 @@ class MatchingFoodsView(APIView):
         foods = Foods.objects.filter(Q(description__iregex=pattern) | Q(food_category__description__iregex=pattern))
 
         # Retrieve the all of the nutrients that belong to each food, for the purpose of picking out the calories for each food
-        foods = foods.prefetch_related("foodnutrients_set")
+        calories = FoodNutrients.objects.filter(nutrient=208)
+        foods = foods.prefetch_related(Prefetch("foodnutrients_set", calories))
 
         foods = foods.select_related("food_category")
 
