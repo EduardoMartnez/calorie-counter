@@ -1,13 +1,13 @@
 from django.shortcuts import render
-from rest_framework.generics import RetrieveUpdateAPIView, CreateAPIView
-from rest_framework.permissions import IsAuthenticated
-from .serializers import CustomUserSerializer, RegisterUserSerialzer, LoginUserSerializer
-from rest_framework.views import APIView
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.generics import RetrieveUpdateAPIView, CreateAPIView
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenRefreshView
 from rest_framework_simplejwt.exceptions import InvalidToken
+from .serializers import CustomUserSerializer, RegisterUserSerialzer, LoginUserSerializer
 
 class UserInfoView(RetrieveUpdateAPIView):
     permission_classes = (IsAuthenticated,)
