@@ -174,7 +174,7 @@ SIMPLE_JWT = {
 CORS_ALLOW_ALL_ORIGINS=True # Disable in production
 CORS_ALLOW_CREDENTIALS=True
 
-TESTING = bool(os.getenv("DJANGO_TESTING", 1))
+TESTING = bool(os.getenv("DJANGO_TESTING", 0))
 
 if not TESTING:
     INSTALLED_APPS = [
@@ -184,4 +184,8 @@ if not TESTING:
     MIDDLEWARE = [
         "debug_toolbar.middleware.DebugToolbarMiddleware",
         *MIDDLEWARE,
+    ]
+    INTERNAL_IPS = [
+        "127.0.0.1",
+        "localhost",
     ]

@@ -19,7 +19,7 @@ class MatchingFoodsView(APIView):
         # Retrieve the all of the nutrients that belong to each food, for the purpose of picking out the calories for each food
         foods = foods.prefetch_related("foodnutrients_set")
 
-        #foods = foods.select_related("foodcategory")
+        foods = foods.select_related("food_category")
 
         serializer = self.serializer_class(foods, many=True)
 
