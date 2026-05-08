@@ -25,3 +25,22 @@ class MatchingFoodsView(APIView):
         serializer = self.serializer_class(foods, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class RetrieveFoodView(APIView):
+    serializer_class = MatchingFoodsSerializer # FoodsSerializer
+
+    def get(self, request):
+        pattern = request.query_params.get('pattern') # Consider building strings from pattern and how that would work with regex
+
+        # Retrieve all of the foods whose description or category matches the regex pattern
+        foods = Foods.objects.filter(Q(description__iregex=pattern) | Q(food_category__description__iregex=pattern))
+
+        # Retrieve the all of the nutrients that belong to each food, for the purpose of picking out the calories for each food
+        calories = FoodNutrients.objects.filter(nutrient=208)
+        foods = foods.prefetch_related(Prefetch("foodnutrients_set", calories))
+
+        foods = foods.select_related("food_category")
+
+        serializer = self.serializer_class(foods, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
