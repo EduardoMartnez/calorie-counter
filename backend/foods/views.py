@@ -34,9 +34,9 @@ class RetrieveFoodView(APIView):
         # Start building the QuerySet for retrieving the food and all of it's information
         food = Foods.objects.all()
 
-        #nutrients = FoodNutrients.objects.select_related("nutrient")
+        nutrients = FoodNutrients.objects.select_related("nutrient")
         # Retrieve all of the nutrients that belong to the food
-        food = food.prefetch_related("foodnutrients_set")
+        food = food.prefetch_related(Prefetch("foodnutrients_set", nutrients))
 
         # Retrieve all of the portions that exist for the food
         food = food.prefetch_related("foodportions_set")

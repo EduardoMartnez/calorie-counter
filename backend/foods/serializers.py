@@ -48,12 +48,24 @@ class FoodNutrientsSerializer(serializers.ModelSerializer):
         
 class NutrientsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = FoodNutrients
+        model = Nutrients
         fields = ['id',         # Unique ID of a nutrient
                   'name',       # Name of a nutrient
                   'unit_name',  # Measurement unit for the nutrient
                   'rank'        # Order in which the nutrient is displayed
                   ]
+        
+class FoodNutrientInformationSerializer(FoodNutrientsSerializer):
+    # Collect information about a nutrient that a food has
+    nutrient = serializers.SerializerMethodField()
+
+    def get_nutrient(self, obj):
+        nutrient = obj.nutrient
+        return NutrientsSerializer(nutrient).data if nutrient else None
+
+    class Meta(FoodNutrientsSerializer.Meta):
+        model = FoodNutrients
+        fields = FoodNutrientsSerializer.Meta.fields
 
 # Advanced Serializers for views.py
 class MatchingFoodsSerializer(FoodsSerializer):
@@ -72,7 +84,7 @@ class MatchingFoodsSerializer(FoodsSerializer):
 
     class Meta(FoodsSerializer.Meta):
         model = Foods
-        fields = FoodsSerializer.Meta.fields + ['food_category','calories']
+        fields = FoodsSerializer.Meta.fields + ['calories']
 
 class RetrieveFoodSerializer(FoodsSerializer):
     nutrients = serializers.SerializerMethodField()
@@ -83,7 +95,7 @@ class RetrieveFoodSerializer(FoodsSerializer):
     # Uses prefetched foodnutrients_set to find all the nutrients of a food
     def get_nutrients(self, obj):
         nutrients = obj.foodnutrients_set.all()
-        return FoodNutrientsSerializer(nutrients, many=True).data if nutrients else None
+        return FoodNutrientInformationSerializer(nutrients, many=True).data if nutrients else None
     
     # Uses prefetched foodportions_set to find all the portions of a food
     def get_portions(self, obj):
@@ -102,4 +114,4 @@ class RetrieveFoodSerializer(FoodsSerializer):
 
     class Meta(FoodsSerializer.Meta):
         model = Foods
-        fields = FoodsSerializer.Meta.fields + ['nutrients', 'portions', 'ingredients', 'food_category',]
+        fields = FoodsSerializer.Meta.fields + ['nutrients', 'portions', 'ingredients']
