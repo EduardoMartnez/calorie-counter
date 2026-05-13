@@ -29,11 +29,11 @@ export default function Home() {
   }
 
   return (
-    <div className='min-h-screen bg-gray-100 items-center flex flex-col justify-center'>
-      <div className='bg-gray-600 p-8 flex flex-col round'>
+    <div>
+      <div>
         {user ? <h1> Hi, {user.username}</h1> : <h1>Welcome stranger!</h1>}
-        <button className='bg-blue-400 p-1 rounded-sm' onClick={handleLogout}>Logout</button>
-        <button className='bg-blue-400 p-1 rounded-sm' onClick={handleRefresh}>Refresh Token</button>
+        <button onClick={handleLogout}>Logout</button>
+        <button onClick={handleRefresh}>Refresh Token</button>
       </div>
       
     </div>
