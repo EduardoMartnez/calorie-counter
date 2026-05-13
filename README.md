@@ -29,19 +29,19 @@ icon button to add more matching food items to the search results list.
 - [ ] 2.11 User can see 'Recipes' button to enter a page to manage recipes.
 - [ ] 2.12 User can see a star indicating a food is used in a user recipe.
 
-### 3. Recipe Manager page
+### 3. Meal Plan Manager page
 - [ ] 3.1 User can click on the 'Search' button to access Calorie Counter main page.
-- [ ] 3.2 User can click on the 'Create' button to begin creating a recipe in a pop-up window.
-  - [ ] 3.2.1 User can click on the 'Name' text box to to change the recipe's name.
-  - [ ] 3.2.1 User can click on the 'Add Ingredient' button to add a food from the database.
+- [ ] 3.2 User can click on the 'Create' button to begin creating a meal plan in a pop-up window.
+  - [ ] 3.2.1 User can click on the 'Name' text box to to change the meal plan's name.
+  - [ ] 3.2.1 User can click on the 'Add Food' button to add a food from the database.
   - [ ] 3.2.2 User will have access to a copy of the search bar from the Calorie Counter page.
-  - [ ] 3.2.3 User can choose a food from the list to add to the recipe.
-  - [ ] 3.2.4 User can type in the 'Description' text box to explain further details for the recipe.
-  - [ ] 3.2.5 User can click on the 'Save' button to store the recipe ingredients and description.
-- [ ] 3.3 User can click on the 'Edit' button next to a recipe to edit its' ingredients and description.
-- [ ] 3.4 User can click on the 'Delete' button next to a recipe to remove the recipe.
-- [ ] 3.5 User can click on the 'View' button to view the recipe ingredients and description in a pop-up window.
-- [ ] 3.6 User can click on the 'AI Help' button to have an AI agent create and edit a recipe for the user.
+  - [ ] 3.2.3 User can choose a food from the list to add to the meal plan.
+  - [ ] 3.2.4 User can type in the 'Description' text box to explain further details for the meal plan.
+  - [ ] 3.2.5 User can click on the 'Save' button to store the meal plan connected to their account.
+- [ ] 3.3 User can click on the 'Edit' button next to a meal plan to edit it.
+- [ ] 3.4 User can click on the 'Delete' button next to a recipe to remove the meal plan.
+- [ ] 3.5 User can click on the 'View' button to view the meal plan in a pop-up window.
+- [ ] 3.6 User can click on the 'AI Help' button to have an AI agent create and edit a meal plan for the user.
 
 ### 4. Backend features
 - [ ] 3.7 Developer will create a JSON file containing the food items to be

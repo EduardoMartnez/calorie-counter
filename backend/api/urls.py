@@ -17,7 +17,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+API_URL = "api/"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/users/',  include("users.urls")),
+    path(API_URL + 'users/',  include("users.urls")),
+    path(API_URL + 'foods/',  include("foods.urls")),
 ]
+
+from django.conf import settings
+
+if not settings.TESTING:
+    from debug_toolbar.toolbar import debug_toolbar_urls
+
+    urlpatterns = [
+        *urlpatterns,
+    ] + debug_toolbar_urls()
