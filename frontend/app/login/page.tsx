@@ -23,21 +23,37 @@ export default function loginPage() {
     return (
         <>
             <Navbar/>
-            <div className='min-h-screen bg-gray-100 items-center flex flex-col justify-center'>
-                <form onSubmit={handleSubmit} className='bg-gray-600 p-8 flex flex-col'>
-                    <label>Email</label>
-                    <input className='text-gray-600' type="email" value={email} required
-                    onChange={(e)=>{setEmail(e.target.value)}}/>
-                    <br />
+            <div className='min-h-screen bg-gray-100 flex flex-col items-center justify-center'>
+                <form
+                    onSubmit={handleSubmit}
+                    className='bg-gray-600 p-8 flex flex-col gap-4 rounded-lg'
+                >
+                    <label className='text-white'>Email</label>
 
-                    <label>Password</label>
-                    <input className='text-gray-600' type="password" value={password} required
-                    onChange={(e)=>{setPassword(e.target.value)}}/>
-                    <br />
+                    <input
+                    className='bg-white text-gray-900 p-2 rounded border'
+                    type="email"
+                    value={email}
+                    required
+                    onChange={(e) => setEmail(e.target.value)}
+                    />
+
+                    <label className='text-white'>Password</label>
+
+                    <input
+                    className='bg-white text-gray-900 p-2 rounded border'
+                    type="password"
+                    value={password}
+                    required
+                    onChange={(e) => setPassword(e.target.value)}
+                    />
 
                     <button
-                    className='bg-blue-400 p-1 rounded-sm'
-                    type="submit">Login</button>
+                    className='bg-blue-400 p-2 rounded text-white'
+                    type="submit"
+                    >
+                    Login
+                    </button>
                 </form>
             </div>
         </>
