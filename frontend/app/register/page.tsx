@@ -2,6 +2,7 @@
 import React from 'react';
 import { useState } from "react";
 import { registerUser } from '../../utils/auth';
+import Navbar from '../components/navbar/Navbar';
 
 export default function registerPage() {
     const [username, setUsername] = useState("")
@@ -21,27 +22,30 @@ export default function registerPage() {
         }
     }
     return (
-        <div className='min-h-screen bg-gray-100 items-center flex flex-col justify-center'>
-            <form onSubmit={handleSubmit} className='bg-gray-600 p-8 flex flex-col round'>
-                <label>Username</label>
-                <input className='text-gray-600' type="text" value={username} required 
-                onChange={(e)=>{setUsername(e.target.value)}}/>
-                <br />
+        <>
+            <Navbar/>
+            <div className='min-h-screen bg-gray-100 items-center flex flex-col justify-center'>
+                <form onSubmit={handleSubmit} className='bg-gray-600 p-8 flex flex-col rounded-lg'>
+                    <label>Username</label>
+                    <input className='bg-white text-gray-900 p-2 rounded border' type="text" value={username} required 
+                    onChange={(e)=>{setUsername(e.target.value)}}/>
+                    <br />
 
-                <label>Email</label>
-                <input className='text-gray-600' type="email" value={email} required
-                onChange={(e)=>{setEmail(e.target.value)}}/>
-                <br />
+                    <label>Email</label>
+                    <input className='bg-white text-gray-900 p-2 rounded border' type="email" value={email} required
+                    onChange={(e)=>{setEmail(e.target.value)}}/>
+                    <br />
 
-                <label>Password</label>
-                <input className='text-gray-600' type="password" value={password} required
-                onChange={(e)=>{setPassword(e.target.value)}}/>
-                <br />
+                    <label>Password</label>
+                    <input className='bg-white text-gray-900 p-2 rounded border' type="password" value={password} required
+                    onChange={(e)=>{setPassword(e.target.value)}}/>
+                    <br />
 
-                <button
-                className='bg-blue-400 p-1 rounded-sm'
-                type="submit">Register</button>
-            </form>
-        </div>
+                    <button
+                    className='bg-blue-400 p-2 rounded text-white'
+                    type="submit">Register</button>
+                </form>
+            </div>
+        </>
     )
 }
