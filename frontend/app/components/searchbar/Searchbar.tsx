@@ -2,28 +2,9 @@
 
 import { useState, useEffect } from "react"
 import { useSearchParams } from 'next/navigation'
-
-import { matchingFoods } from "@/utils/searchbar"
+import { iFood, matchingFoods } from "@/utils/foods"
 import SearchInput from "./Searchinput";
-
-export interface iFoodCategory {
-    id: number;
-    description: string;
-}
-
-export interface iCalories {
-    id: number,
-    food: number,
-    nutrient: number,
-    amount: number
-}
-
-export interface iFood {
-    id: number;
-    description: string;
-    food_category: iFoodCategory;
-    calories: iCalories[];
-}
+import Link from "next/link";
 
 export default function SearchBar() {
     const [foods, setFoods] = useState<iFood[]>([])
@@ -60,9 +41,12 @@ export default function SearchBar() {
                                 key={food.id}
                                 className="border rounded-xl p-4"
                             >
-                                <h2>{food.description}</h2>
-                                <p>Category: {food.food_category.description}</p>
-                                {food.calories && <p>Calories: {food.calories[0].amount}</p>}
+                                <Link href={`food/id?=${food.id}`}>
+                                    <h2>{food.description}</h2>
+                                    <p>Category: {food.food_category.description}</p>
+                                    {food.nutrients && <p>Calories: {food.nutrients[0].amount}</p>}
+                                </Link>
+                                
                             </div>
                         )}
                     </div>
