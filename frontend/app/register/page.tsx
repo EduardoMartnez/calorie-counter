@@ -1,5 +1,5 @@
 "use client"
-import React from 'react';
+import { ChangeEvent } from 'react';
 import { useState } from "react";
 import { registerUser } from '../../utils/auth';
 import Navbar from '../components/navbar/Navbar';
@@ -9,7 +9,7 @@ export default function registerPage() {
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
 
-    const handleSubmit = async (e: any) => {
+    const handleSubmit = async (e: ChangeEvent) => {
         e.preventDefault()
         if (username === "" || password === "" || email === "") {
             return
