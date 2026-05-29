@@ -28,7 +28,7 @@ class LoginView(APIView):
             refresh = RefreshToken.for_user(user)
             access_token = str(refresh.access_token)
 
-            response = Response({"user": CustomUserSerializer(user.data)},
+            response = Response({"user": CustomUserSerializer(user).data},
                                 status=status.HTTP_200_OK)
 
             response.set_cookie(key="access_token",

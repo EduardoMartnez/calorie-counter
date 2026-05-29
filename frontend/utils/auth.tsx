@@ -40,7 +40,7 @@ export const logoutUser = async () => {
 
 export const getUserInfo = async () => {
     try {
-        const response = await axios.post(`${API_URL}user-info/`, null,
+        const response = await axios.get(`${API_URL}user-info/`,
             {withCredentials: true}
         )
         return response.data

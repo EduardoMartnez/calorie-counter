@@ -75,6 +75,7 @@ export default function Navbar() {
                   </li>
                   <li>
                     <button
+                      className="cursor-pointer"
                       onClick={handleLogout}
                     >
                       Logout
