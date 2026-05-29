@@ -41,7 +41,7 @@ export default function SearchBar() {
                                 key={food.id}
                                 className="border rounded-xl p-4"
                             >
-                                <Link href={`food/id?=${food.id}`}>
+                                <Link href={`food/?id=${food.id}`}>
                                     <h2>{food.description}</h2>
                                     <p>Category: {food.food_category.description}</p>
                                     {food.nutrients && <p>Calories: {food.nutrients[0].amount}</p>}
