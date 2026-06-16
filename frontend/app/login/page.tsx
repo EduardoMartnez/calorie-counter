@@ -1,6 +1,5 @@
 "use client"
-import { ChangeEvent } from 'react';
-import { useState } from "react";
+import { ChangeEvent, useState } from 'react';
 import { loginUser } from '../../utils/auth';
 import Navbar from '../components/navbar/Navbar';
 
