@@ -7,27 +7,27 @@ This application will allow a user to search a food database to learn how many c
 ## User Stories
 
 ### 1. User Accounts
-- [ ] 1.1 User can register an account in a registration page.
-- [ ] 1.2 User can login to their account in a login page.
+- [x] 1.1 User can register an account in a registration page.
+- [x] 1.2 User can login to their account in a login page.
 
 ### 2. Calorie Counter page
 - [ ] 2.1 User can see an panel containing a food description input text box, 
 a 'Search' button, and a 'Clear' button.
-- [ ] 2.2 User can enter search terms into the food description input text box.
+- [x] 2.2 User can enter search terms into the food description input text box.
 - [ ] 2.3 User can click on the 'Search' button to search for the matching food.
 - [ ] 2.4 User can see a warning message if no search terms were entered.
-- [ ] 2.5 User can see a warning message if no matches were found.
+- [x] 2.5 User can see a warning message if no matches were found.
 - [ ] 2.6 User can see a list of the matching food items, portion sizes, and
 calories in a scrollable results panel that is limited to 25 entries.
 - [ ] 2.7 User can click on the 'Clear' button to clear the search terms and 
 results list. 
-- [ ] 2.8 User can see the count of the number of matching food items adjacent to
+- [x] 2.8 User can see the count of the number of matching food items adjacent to
 the results list.
-- [ ] 2.9 User can use a wildcard character in search terms.
+- [x] 2.9 User can use a wildcard character in search terms.
 - [ ] 2.10 User can see more than 25 entries from a search by clicking a Down
 icon button to add more matching food items to the search results list.
-- [ ] 2.11 User can see 'Recipes' button to enter a page to manage recipes.
-- [ ] 2.12 User can see a star indicating a food is used in a user recipe.
+- [ ] 2.11 User can see 'Meal Plan' button to enter a page to manage meal plans.
+- [ ] 2.12 User can see a star indicating a food is used in a user meal plan.
 
 ### 3. Meal Plan Manager page
 - [ ] 3.1 User can click on the 'Search' button to access Calorie Counter main page.
@@ -44,7 +44,4 @@ icon button to add more matching food items to the search results list.
 - [ ] 3.6 User can click on the 'AI Help' button to have an AI agent create and edit a meal plan for the user.
 
 ### 4. Backend features
-- [ ] 3.7 Developer will create a JSON file containing the food items to be
-searched. This will be loaded when the app is started.
-- [ ] 3.8 Developer will implement load the MyPyramid data into a database or a
-data structure other than an array for faster searching.
+- [x] 4.1 Developer will load the FoodData Central data in CSV files into a database.
