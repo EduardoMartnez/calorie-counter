@@ -1,22 +1,29 @@
 from django.shortcuts import render
 from .models import MealPlan
 from .serializers import MealPlanSerializer, MealPlanFullSerializer
-from rest_framework import mixins
-from rest_framework import generics
-from rest_framework.views import APIView
+from rest_framework import mixins, generics, status
+from rest_framework.views import APIView, Response
 
-
-class MealPlanList(
-    mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView
-):
-    queryset = MealPlan.objects.all()
+class MealPlanCreate(APIView):
     serializer_class = MealPlanSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        if self.request.user and serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
+class MealPlanList(APIView):
+    serializer_class = MealPlanSerializer
+
+    def get(self, request):
+        if self.request.user:
+            user_id = self.request.user.id
+            id = request.query_params.get('id')
+            mealplan = MealPlan.objects.filter(id=id, user__id=user_id)
+            serializer = self.serializer_class(mealplan)
+            return Response(serializer.data, status=status.HTTP_200_OK)
     
 class MealPlanDetail(
     mixins.RetrieveModelMixin,
@@ -37,10 +44,13 @@ class MealPlanDetail(
         return self.destroy(request, *args, **kwargs)
     
 class MealPlanDisplay(APIView):
-    serializer_class = MealPlanFullSerializer # FoodsSerializer
+    serializer_class = MealPlanFullSerializer
 
     def get(self, request):
         if self.request.user:
-            user = self.request.user
+            user_id = self.request.user.id
             id = request.query_params.get('id')
-            mealplan = MealPlan.objects.filter(id=id, user=user)
+            mealplan = MealPlan.objects.filter(id=id, user__id=user_id)
+            mealplan = mealplan.prefetch_related("meal_set")
+            serializer = self.serializer_class(mealplan)
+            return Response(serializer.data, status=status.HTTP_200_OK)
