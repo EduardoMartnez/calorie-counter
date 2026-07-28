@@ -20,7 +20,7 @@ class MealSerializer(serializers.ModelSerializer):
                   ]
         
 # Advanced Serializers for views.py
-class MealPlanFullSerializer(MealPlan):
+class MealPlanFullSerializer(MealPlanSerializer):
     meals = serializers.SerializerMethodField()
 
     # Uses prefetched meal_set to find the meals for a meal plan
@@ -28,6 +28,6 @@ class MealPlanFullSerializer(MealPlan):
         meals = obj.meal_set.all()
         return MealSerializer(meals, many=True).data if meals else None
 
-    class Meta(MealPlan.Meta):
+    class Meta(MealPlanSerializer.Meta):
         model = MealPlan
-        fields = MealPlan.Meta.fields + ['meals']
+        fields = MealPlanSerializer.Meta.fields + ['meals']

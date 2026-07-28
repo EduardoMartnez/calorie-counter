@@ -7,7 +7,7 @@ class MealPlan(models.Model):
     description = models.CharField()
 
     def __str__(self):
-        return self.name
+        return self.description
 
 class Meal(models.Model):
     # Meal plan this meal belongs to
@@ -18,4 +18,4 @@ class Meal(models.Model):
     motd = models.CharField() # Meal of the Day
 
     def __str__(self):
-        return self.mealplan.name + ", " + self.food.description + ", " + self.motd
+        return self.mealplan.description + ", " + self.food.description + ", " + self.motd
