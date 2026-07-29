@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from .models import MealPlan, Meal
+from .models import MealPlans, Meals
 from .serializers import MealPlanSerializer, MealPlanFullSerializer, MealSerializer
-from rest_framework import mixins, generics, status
+from rest_framework import status
 from rest_framework.views import APIView, Response
 from rest_framework.permissions import IsAuthenticated
 
@@ -22,7 +22,7 @@ class MealPlanCreateUpdateRemove(APIView):
     # Update a meal plan (for now, just the name)
     def put(self, request):
         id = request.query_params.get('id')
-        mealplan = MealPlan.objects.get(id=id, user=request.user)
+        mealplan = MealPlans.objects.get(id=id, user=request.user)
         serializer = MealPlanSerializer(mealplan, data=request.data)
         if serializer.is_valid() and mealplan.user == request.user:
             serializer.save()
@@ -32,7 +32,7 @@ class MealPlanCreateUpdateRemove(APIView):
     # Delete a meal plan, along with all of the meals associated with it
     def delete(self, request):
             id = request.query_params.get('id')
-            mealplan = MealPlan.objects.get(id=id, user=request.user)
+            mealplan = MealPlans.objects.get(id=id, user=request.user)
             if mealplan and mealplan.user == request.user:
                 mealplan.delete()
                 return Response(status=status.HTTP_204_NO_CONTENT)
@@ -45,7 +45,7 @@ class MealPlanList(APIView):
     # Present a user with all of their meal plans
     def get(self, request):
         id = request.query_params.get('id')
-        mealplan = MealPlan.objects.filter(id=id, user=request.user)
+        mealplan = MealPlans.objects.filter(id=id, user=request.user)
         serializer = self.serializer_class(mealplan, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
@@ -56,7 +56,7 @@ class MealPlanDisplay(APIView):
     # Display the meals of a meal plan to a user
     def get(self, request):
         id = request.query_params.get('id')
-        mealplan = MealPlan.objects.get(id=id, user=request.user)
+        mealplan = MealPlans.objects.get(id=id, user=request.user)
         mealplan = mealplan.prefetch_related("meal_set")
         serializer = self.serializer_class(mealplan)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -76,7 +76,7 @@ class MealCreateRemove(APIView):
     # Delete a meal plan for a user
     def delete(self, request):
         id = request.query_params.get('id')
-        meal = Meal.objects.get(id=id)
+        meal = Meals.objects.get(id=id)
         if meal:
             meal.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)

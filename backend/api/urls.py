@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path(API_URL + 'users/',  include("users.urls")),
     path(API_URL + 'foods/',  include("foods.urls")),
+    path(API_URL + 'mealplans/',  include("mealplans.urls")),
 ]
 
 from django.conf import settings

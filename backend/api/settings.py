@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     # Database apps
     'users',
     'foods',
+    'mealplans',
     # Core
     'django.contrib.admin',
     'django.contrib.auth',

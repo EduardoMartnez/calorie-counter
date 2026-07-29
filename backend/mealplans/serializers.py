@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from .models import MealPlan, Meal
+from .models import MealPlans, Meals
 
 # Basic Serializers
 class MealPlanSerializer(serializers.ModelSerializer):
     class Meta:
-        model = MealPlan
+        model = MealPlans
         fields = ['id',             # Unique ID for a meal plan
                   'user',           # User that owns the meal plan
                   'description',    # Describing what the meal plan is, determined by the user
@@ -12,7 +12,7 @@ class MealPlanSerializer(serializers.ModelSerializer):
 
 class MealSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Meal
+        model = Meals
         fields = ['id',         # Unique ID for a food
                   'mealplan',   # The meal plan that uses this meal
                   'food',       # The food being used for the meal
@@ -29,5 +29,5 @@ class MealPlanFullSerializer(MealPlanSerializer):
         return MealSerializer(meals, many=True).data if meals else None
 
     class Meta(MealPlanSerializer.Meta):
-        model = MealPlan
+        model = MealPlans
         fields = MealPlanSerializer.Meta.fields + ['meals']
