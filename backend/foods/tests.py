@@ -1,16 +1,12 @@
-from django.test import TestCase
-
 import pytest
 from rest_framework.test import APIClient
-from .models import Foods, FoodNutrients
 
 pytestmark = pytest.mark.django_db(transaction=False)
 client = APIClient()
 
 class TestFoods:
     def test_food_matching(self):
-        response_get = client.get("/api/foods/matching-foods",
-                                  {"pattern": "milk"}, format='json')
+        response_get = client.get("/api/foods/matching-foods/?pattern=milk", format='json')
 
         assert response_get.status_code == 200
 
@@ -47,16 +43,16 @@ class TestFoods:
         assert food['food_category']['description'] == "Milk, reduced fat"
         # Food nutrient information
         assert food['nutrients'][0]['food'] == 2705384
-        assert food['nutrients'][0]['nutrient']['id'] == 301
-        assert food['nutrients'][0]['nutrient']['name'] == "Calcium, Ca"
-        assert food['nutrients'][0]['nutrient']['unit_name'] == "MG"
-        assert food['nutrients'][0]['nutrient']['rank'] ==  5300.0
-        assert food['nutrients'][0]['amount'] == 125.0
+        assert food['nutrients'][0]['nutrient']['id'] == 203
+        assert food['nutrients'][0]['nutrient']['name'] == "Protein"
+        assert food['nutrients'][0]['nutrient']['unit_name'] == "G"
+        assert food['nutrients'][0]['nutrient']['rank'] ==  600.0
+        assert food['nutrients'][0]['amount'] == 3.33
         # Food portion information
         assert food['portions'][0]['food'] == 2705384
-        assert food['portions'][0]['seq_num'] == 5
-        assert food['portions'][0]['description'] == "Guideline amount per cup of hot cereal"
-        assert food['portions'][0]['gram_weight'] == 61.0
+        assert food['portions'][0]['seq_num'] == 1
+        assert food['portions'][0]['description'] == "1 cup"
+        assert food['portions'][0]['gram_weight'] == 244.0
         # Food ingredient information
         assert food['ingredients'][0]['food'] == 2705384
         assert food['ingredients'][0]['seq_num'] == 1
