@@ -9,6 +9,7 @@ class MealPlanSerializer(serializers.ModelSerializer):
                   'user',           # User that owns the meal plan
                   'description',    # Describing what the meal plan is, determined by the user
                   ]
+        read_only_fields = ["user"]
 
 class MealSerializer(serializers.ModelSerializer):
     class Meta:

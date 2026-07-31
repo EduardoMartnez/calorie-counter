@@ -10,30 +10,26 @@ class MealPlanCreateUpdateRemove(APIView):
     serializer_class = MealPlanSerializer
 
     # Create a meal plan
-    def post(self, request):
+    def post(self, request, plan_id):
         serializer = self.serializer_class(data=request.data)
-
         if serializer.is_valid():
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # Update a meal plan (for now, just the name)
-    def put(self, request):
-        id = request.query_params.get('id')
-        mealplan = MealPlans.objects.get(id=id, user=request.user)
+    def put(self, request, plan_id):
+        mealplan = MealPlans.objects.get(id=plan_id, user=request.user)
         serializer = MealPlanSerializer(mealplan, data=request.data)
-        if serializer.is_valid() and mealplan.user == request.user:
+        if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # Delete a meal plan, along with all of the meals associated with it
-    def delete(self, request):
-            id = request.query_params.get('id')
-            mealplan = MealPlans.objects.get(id=id, user=request.user)
-            if mealplan and mealplan.user == request.user:
+    def delete(self, request, plan_id):
+            mealplan = MealPlans.objects.get(id=plan_id, user=request.user)
+            if mealplan:
                 mealplan.delete()
                 return Response(status=status.HTTP_204_NO_CONTENT)
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -44,8 +40,7 @@ class MealPlanList(APIView):
 
     # Present a user with all of their meal plans
     def get(self, request):
-        id = request.query_params.get('id')
-        mealplan = MealPlans.objects.filter(id=id, user=request.user)
+        mealplan = MealPlans.objects.filter(user=request.user)
         serializer = self.serializer_class(mealplan, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
@@ -66,7 +61,7 @@ class MealCreateRemove(APIView):
     serializer_class = MealSerializer
 
     # Create a meal for a user's meal plan
-    def post(self, request):
+    def post(self, request, meal_id):
         serializer = MealSerializer(data=request.data)
         if serializer.is_valid():
                 serializer.save(user=request.user)
@@ -74,9 +69,8 @@ class MealCreateRemove(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # Delete a meal plan for a user
-    def delete(self, request):
-        id = request.query_params.get('id')
-        meal = Meals.objects.get(id=id)
+    def delete(self, request, meal_id):
+        meal = Meals.objects.get(id=meal_id)
         if meal:
             meal.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
