@@ -26,7 +26,7 @@ class MealPlanFullSerializer(MealPlanSerializer):
 
     # Uses prefetched meal_set to find the meals for a meal plan
     def get_meals(self, obj):
-        meals = obj.meal_set.all()
+        meals = obj.meals_set.all()
         return MealSerializer(meals, many=True).data if meals else None
 
     class Meta(MealPlanSerializer.Meta):

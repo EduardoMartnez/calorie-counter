@@ -51,8 +51,8 @@ class MealPlanDisplay(APIView):
     # Display the meals of a meal plan to a user
     def get(self, request):
         id = request.query_params.get('id')
-        mealplan = MealPlans.objects.get(id=id, user=request.user)
-        mealplan = mealplan.prefetch_related("meal_set")
+        mealplan = MealPlans.objects.prefetch_related("meals_set")
+        mealplan = mealplan.get(id=id, user=request.user)
         serializer = self.serializer_class(mealplan)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -64,7 +64,7 @@ class MealCreateRemove(APIView):
     def post(self, request, meal_id):
         serializer = MealSerializer(data=request.data)
         if serializer.is_valid():
-                serializer.save(user=request.user)
+                serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
